@@ -1,0 +1,28 @@
+flask
+flask-cors
+python-dotenv
+whisper
+spacy
+transformers
+torch
+requests
+
+ollama
+# Flask Web Server
+flask
+flask-cors
+
+# Speech-to-Text (Still needed)
+openai-whisper
+numpy
+
+# NLP (No longer needed)
+# spacy
+# sentencepiece
+
+# AI Generation (No longer needed)
+# transformers
+# torch
+
+# NEW: For calling the Ollama API
+requests
