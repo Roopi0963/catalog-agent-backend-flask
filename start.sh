@@ -5,7 +5,7 @@ ollama serve &
 
 # Wait for Ollama to start (important!)
 echo "Waiting for Ollama..."
-sleep 5
+sleep 10
 
 # Pull the model (downloads it inside the cloud container)
 echo "Pulling Qwen Model..."
