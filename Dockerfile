@@ -72,7 +72,9 @@
 # CMD ["./start.sh"]
 
 
-FROM python:3.9-slim
+# 1. CHANGE: Upgrade to Python 3.10. 
+# 3.9 is older and sometimes misses pre-built wheels for newer libraries like Spacy.
+FROM python:3.10-slim
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -92,17 +94,18 @@ WORKDIR /app
 # Copy requirements
 COPY requirements.txt .
 
-# --- OPTIMIZATION START ---
-# 1. Upgrade pip so it finds pre-built wheels (Fixes Spacy compilation time)
+# Upgrade pip
 RUN pip install --upgrade pip
 
-# 2. Install CPU-only version of Torch FIRST (Saves ~2GB of download and 5-10 mins)
-# If you actually HAVE a GPU in production, remove the "--index-url" part.
+# 2. OPTIMIZATION: Install CPU Torch (Keep this, it worked great!)
 RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
-# 3. Install the rest of the requirements
+# 3. FIX: Install Spacy separately first to ensure we get a binary
+# This prevents the 28-minute compile time.
+RUN pip install --no-cache-dir spacy==3.8.2 --only-binary=:all:
+
+# 4. Install the rest of the requirements
 RUN pip install --no-cache-dir -r requirements.txt
-# --- OPTIMIZATION END ---
 
 # Copy all application files
 COPY . .

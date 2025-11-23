@@ -1,7 +1,6 @@
 flask
 flask-cors
 python-dotenv
-whisper
 spacy
 transformers
 torch
