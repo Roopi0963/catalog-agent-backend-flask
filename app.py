@@ -234,5 +234,10 @@ def process_voice_to_catalog():
 def health_check():
     return jsonify({"status": "Flask AI Service is running!"})
 
+
+with app.app_context():
+    print("Registered Routes:")
+    for rule in app.url_map.iter_rules():
+        print(f"{rule} -> {rule.endpoint}")
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=7860)
