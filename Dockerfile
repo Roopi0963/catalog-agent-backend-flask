@@ -119,4 +119,5 @@ RUN mkdir -p temp_uploads && chmod 777 temp_uploads
 # Expose port
 EXPOSE 7860
 
-CMD ["./start.sh"]
+# CMD ["./start.sh"]
+CMD ["python", "app.py"]
